@@ -7,7 +7,7 @@ load_dotenv(find_dotenv())
 
 # get absolute path static directory in root project
 log_folder = os.path.abspath(os.path.join(
-    os.path.dirname(os.path.dirname(__file__)), 'log'))
+os.path.dirname(os.path.dirname(__file__)), 'log'))
 
 db_host = os.getenv("DB_HOST")
 db_port = os.getenv("DB_PORT")

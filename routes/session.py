@@ -12,11 +12,12 @@ class Session:
     
     @blueprint.route("register", methods = ["POST"])
     def register():
-        inputs = RegisterInput(request.form, meta = {'csrf': False})
+        request_json = request.get_json()
+        inputs = RegisterInput.from_json(request_json)
         if not inputs.validate():
             return jsonify(error = inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
 
-        return sessionController.register(request.form)
+        return sessionController.register(request.get_json())
 
     @blueprint.route("login", methods = ["POST"])
     def login():
