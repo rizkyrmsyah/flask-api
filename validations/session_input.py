@@ -1,4 +1,3 @@
-from flask_wtf import FlaskForm
 from wtforms.validators import InputRequired, Email, Length, EqualTo
 from wtforms import StringField, PasswordField, Form, ValidationError
 from models import User
@@ -29,9 +28,9 @@ class RegisterInput(Form):
         EqualTo('password', message='Password dan konfirmasi password harus sama')
     ])
 
-class LoginInput(FlaskForm):
+class LoginInput(Form):
     email = StringField("email", [InputRequired(message = "Email wajib diisi"), Email(message = "Input harus berupa alamat email")])
     password = StringField("password", [InputRequired(message = "Password wajib diisi")])
 
-class CheckPaswordInput(FlaskForm):
+class CheckPaswordInput(Form):
     password = StringField("password", [InputRequired(message = "Password wajib diisi"), Length(min = 8, message = "Konfirmasi password minimal 8 karakter")])
