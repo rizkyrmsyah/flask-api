@@ -16,16 +16,28 @@ class User:
 
     @blueprint.route("change-password", methods = ["POST"])
     def change_password():
-        inputs = ChangePasswordInput(request.form, meta = {'csrf': False})
+        if request.form:
+            input_request = request.form
+            inputs = ChangePasswordInput(request.form)
+        else:
+            input_request = request.get_json()
+            inputs = ChangePasswordInput.from_json(input_request)
+
         if not inputs.validate():
             return jsonify(error = inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
 
-        return userController.change_password(request.form)
+        return userController.change_password(input_request)
     
     @blueprint.route("change-name", methods = ["POST"])
     def change_name():
-        inputs = ChangeNameInput(request.form, meta = {'csrf': False})
+        if request.form:
+            input_request = request.form
+            inputs = ChangeNameInput(request.form)
+        else:
+            input_request = request.get_json()
+            inputs = ChangeNameInput.from_json(input_request)
+
         if not inputs.validate():
             return jsonify(error = inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
             
-        return userController.change_name(request.form)
+        return userController.change_name(input_request)

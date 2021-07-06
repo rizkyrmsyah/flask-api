@@ -29,8 +29,14 @@ class RegisterInput(Form):
     ])
 
 class LoginInput(Form):
-    email = StringField("email", [InputRequired(message = "Email wajib diisi"), Email(message = "Input harus berupa alamat email")])
+    email = StringField("email", [
+        InputRequired(message = "Email wajib diisi"), 
+        Email(message = "Input harus berupa alamat email")
+    ])
     password = StringField("password", [InputRequired(message = "Password wajib diisi")])
 
 class CheckPaswordInput(Form):
-    password = StringField("password", [InputRequired(message = "Password wajib diisi"), Length(min = 8, message = "Konfirmasi password minimal 8 karakter")])
+    password = StringField("password", [
+        InputRequired(message = "Password wajib diisi"), 
+        Length(min = 8, message = "Konfirmasi password minimal 8 karakter")
+    ])

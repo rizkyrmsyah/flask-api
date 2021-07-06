@@ -13,28 +13,41 @@ class Session:
     @blueprint.route("register", methods = ["POST"])
     def register():
         if request.form:
+            input_request = request.form
             inputs = RegisterInput(request.form)
         else:
-            request_json = request.get_json()
-            inputs = RegisterInput.from_json(request_json)
+            input_request = request.get_json()
+            inputs = RegisterInput.from_json(input_request)
         
         if not inputs.validate():
             return jsonify(error = inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
 
-        return sessionController.register(request.get_json())
+        return sessionController.register(input_request)
 
     @blueprint.route("login", methods = ["POST"])
     def login():
-        inputs = LoginInput(request.form, meta = {'csrf': False})
+        if request.form:
+            input_request = request.form
+            inputs = LoginInput(request.form)
+        else:
+            input_request = request.get_json()
+            inputs = LoginInput.from_json(input_request)
+
         if not inputs.validate():
             return jsonify(error = inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
 
-        return sessionController.login(request.form)
+        return sessionController.login(input_request)
     
     @blueprint.route("check-password", methods = ["POST"])
     def check_password():
-        inputs = CheckPaswordInput(request.form, meta = {'csrf': False})
+        if request.form:
+            input_request = request.form
+            inputs = CheckPaswordInput(request.form)
+        else:
+            input_request = request.get_json()
+            inputs = CheckPaswordInput.from_json(input_request)
+
         if not inputs.validate():
             return jsonify(error = inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
 
-        return sessionController.check_password(request.form)
+        return sessionController.check_password(input_request)

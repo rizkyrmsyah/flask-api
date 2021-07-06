@@ -19,9 +19,6 @@ class UserController(object):
     @jwt_required()
     def change_password(self, request:dict):
         user = User.query.filter_by(id = get_jwt_identity()).first()
-        if request['password'] != request['confirm_password']:
-            return jsonify(message = "Password dan konfirmasi password tidak sama"), HTTPStatus.UNPROCESSABLE_ENTITY
-
         if not bcrypt.check_password_hash(user.password, request['old_password']):
             return jsonify(message = "Password lama salah"), HTTPStatus.UNPROCESSABLE_ENTITY
 
@@ -38,4 +35,5 @@ class UserController(object):
         user.name = request['name']
         user.updated_at = datetime.now()
         db.session.commit()
+
         return jsonify(message = "Ubah nama berhasil")
