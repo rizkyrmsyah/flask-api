@@ -7,7 +7,7 @@ load_dotenv(find_dotenv())
 
 # get absolute path static directory in root project
 log_folder = os.path.abspath(os.path.join(
-os.path.dirname(os.path.dirname(__file__)), 'log'))
+    os.path.dirname(os.path.dirname(__file__)), 'log'))
 
 db_host = os.getenv("DB_HOST")
 db_port = os.getenv("DB_PORT")
@@ -17,7 +17,7 @@ db_password = os.getenv("DB_PASSWORD")
 
 class Configuration(object):
     # Basic
-    APP_DEBUG = os.getenv("APP_DEBUG") == "True"
+    APP_DEBUG = os.getenv("APP_DEBUG")
     APP_PORT = int(os.getenv("APP_PORT", 5000))
 
     # MYSQL
@@ -26,9 +26,10 @@ class Configuration(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv("DB_TRACK_MODIFICATIONS")
 
     # MAILER
-    MAIL_HOST = os.getenv("MAIL_HOST")
+    MAIL_SERVER = os.getenv("MAIL_SERVER")
     MAIL_PORT = int(os.getenv("MAIL_PORT"))
-    MAIL_ENCRYPTION = os.getenv("MAIL_ENCRYPTION")
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
 
