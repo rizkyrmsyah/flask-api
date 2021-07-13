@@ -1,5 +1,7 @@
 # Projek latihan Python Flask API 
 
+<a href="https://codeclimate.com/github/rizkyrmsyah/flask-api/maintainability"><img src="https://api.codeclimate.com/v1/badges/641ce2a12645c39688ee/maintainability" /></a>
+
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## Prerequisite
