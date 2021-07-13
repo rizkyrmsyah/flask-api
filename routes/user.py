@@ -8,13 +8,13 @@ import json
 blueprint = Blueprint("user", __name__)
 userController = UserController()
 
+
 class User:
-    
-    @blueprint.route("/", methods = ["GET"])
+    @blueprint.route("/", methods=["GET"])
     def show():
         return userController.show()
 
-    @blueprint.route("change-password", methods = ["POST"])
+    @blueprint.route("change-password", methods=["POST"])
     def change_password():
         if request.form:
             input_request = request.form
@@ -24,11 +24,11 @@ class User:
             inputs = ChangePasswordInput.from_json(input_request)
 
         if not inputs.validate():
-            return jsonify(error = inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
+            return jsonify(error=inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
 
         return userController.change_password(input_request)
-    
-    @blueprint.route("change-name", methods = ["POST"])
+
+    @blueprint.route("change-name", methods=["POST"])
     def change_name():
         if request.form:
             input_request = request.form
@@ -38,6 +38,6 @@ class User:
             inputs = ChangeNameInput.from_json(input_request)
 
         if not inputs.validate():
-            return jsonify(error = inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
-            
+            return jsonify(error=inputs.errors), HTTPStatus.UNPROCESSABLE_ENTITY
+
         return userController.change_name(input_request)

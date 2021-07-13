@@ -7,8 +7,8 @@ from helpers.bcrypt import bcrypt
 
 from models import User, UserSchema, UserActivity
 
-class UserController(object):
 
+class UserController(object):
     @jwt_required()
     def show(self):
         user = User.query.filter_by(id=get_jwt_identity()).first()
@@ -20,15 +20,18 @@ class UserController(object):
         db.session.add(save_activity)
         db.session.commit()
 
-        return jsonify(message="success", data = data)
-    
-    @jwt_required()
-    def change_password(self, request:dict):
-        user = User.query.filter_by(id=get_jwt_identity()).first()
-        if not bcrypt.check_password_hash(user.password, request['old_password']):
-            return jsonify(message="Kata sandi lama yang kamu masukkan salah"), HTTPStatus.UNPROCESSABLE_ENTITY
+        return jsonify(message="success", data=data)
 
-        password = bcrypt.generate_password_hash(request['password'])
+    @jwt_required()
+    def change_password(self, request: dict):
+        user = User.query.filter_by(id=get_jwt_identity()).first()
+        if not bcrypt.check_password_hash(user.password, request["old_password"]):
+            return (
+                jsonify(message="Kata sandi lama yang kamu masukkan salah"),
+                HTTPStatus.UNPROCESSABLE_ENTITY,
+            )
+
+        password = bcrypt.generate_password_hash(request["password"])
         user.password = password
         user.updated_at = datetime.now()
 
@@ -40,9 +43,9 @@ class UserController(object):
         return jsonify(message="Ubah kata sandi berhasil")
 
     @jwt_required()
-    def change_name(self, request:dict):
-        user = User.query.filter_by(id = get_jwt_identity()).first()
-        user.name = request['name']
+    def change_name(self, request: dict):
+        user = User.query.filter_by(id=get_jwt_identity()).first()
+        user.name = request["name"]
         user.updated_at = datetime.now()
 
         # save user activity
@@ -53,12 +56,10 @@ class UserController(object):
         return jsonify(message="Ubah nama berhasil")
 
     @jwt_required()
-    def change_email(self, request:dict):
-        user = User.query.filter(User.id == get_jwt_identity()).\
-            update({
-                User.email : request['email'],
-                User.updated_at : datetime.now()
-            })
+    def change_email(self, request: dict):
+        user = User.query.filter(User.id == get_jwt_identity()).update(
+            {User.email: request["email"], User.updated_at: datetime.now()}
+        )
 
         # save user activity
         activity = UserActivity(user_id=get_jwt_identity(), message="Merubah email")
@@ -66,5 +67,3 @@ class UserController(object):
         db.session.commit()
 
         return jsonify(message="ubah email berhasil")
-
-        

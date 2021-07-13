@@ -9,22 +9,21 @@ import routes
 cors = CORS()
 mail = Mail()
 
+
 def create_app(configuration):
     app = Flask(
-        __name__.split(',')[0],
-        static_url_path='/static',
-        static_folder='../static'
+        __name__.split(",")[0], static_url_path="/static", static_folder="../static"
     )
 
-    app.config['JSON_SORT_KEYS'] = False
+    app.config["JSON_SORT_KEYS"] = False
     app.config["JWT_SECRET_KEY"] = configuration.JWT_SECRET
 
     # load configuration
     app.config.from_object(configuration)
 
     # register route blueprint
-    app.register_blueprint(routes.session.blueprint, url_prefix='/api/v1/user')
-    app.register_blueprint(routes.user.blueprint, url_prefix='/api/v1/user')
+    app.register_blueprint(routes.session.blueprint, url_prefix="/api/v1/user")
+    app.register_blueprint(routes.user.blueprint, url_prefix="/api/v1/user")
     ##
 
     # init app

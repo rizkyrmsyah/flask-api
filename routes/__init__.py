@@ -1,9 +1,3 @@
-from . import (
-    session,
-    user
-)
+from . import session, user
 
-__all__ = [
-    session,
-    user
-    ]
+__all__ = [session, user]

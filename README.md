@@ -1,5 +1,7 @@
 # Projek latihan Python Flask API 
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 ## Prerequisite
 
 Make sure you have installed [Python](https://www.python.org/), [pip](https://pip.pypa.io/en/stable/installing/) and [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html).

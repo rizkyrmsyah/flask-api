@@ -3,9 +3,10 @@ from helpers.alchemy import sql_alchemy as db
 from helpers.marshmallow import marshmallow as ma
 import datetime
 
+
 class UserActivity(db.Model):
-    
-    __tablename__ = 'user_activities'
+
+    __tablename__ = "user_activities"
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
